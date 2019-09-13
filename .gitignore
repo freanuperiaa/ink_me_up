@@ -54,7 +54,7 @@
 **/ios/**/.symlinks/
 **/ios/**/profile
 **/ios/**/xcuserdata
-**/ios/.generated/
+**/ios/.src.generated/
 **/ios/Flutter/App.framework
 **/ios/Flutter/Flutter.framework
 **/ios/Flutter/Generated.xcconfig
