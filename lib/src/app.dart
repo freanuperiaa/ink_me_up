@@ -7,18 +7,17 @@ import 'package:ink_me_up/src/screens/home.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget{
-  var _hasUser = false;
+
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   Future<FirebaseUser> getUser() async {
     return await _auth.currentUser();
   }
+
+  var _hasUser = false;
+
   @override
   Widget build(BuildContext context){
-    Future<FirebaseUser> user = getUser();
-    user != null
-      ? _hasUser = true
-      : _hasUser = false;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -26,7 +25,7 @@ class MyApp extends StatelessWidget{
       ),
       title: 'Ink Me Up!',
       home: _hasUser
-              ? HomePage(user: user,)
+              ? Scaffold()
               : LoginSignUpPage(),
       routes: <String, WidgetBuilder>{
         '/home': (context) => HomePage(),

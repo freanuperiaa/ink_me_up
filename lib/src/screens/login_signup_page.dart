@@ -105,9 +105,9 @@ class _LoginSignUpPageState extends State<LoginSignUpPage>{
     return FlatButton(
       child: _formMode == FormMode.LOGIN
           ? Text('Create an account',
-          style: helper.authButton1Style)
+          style: helper.authButton2Style)
           : Text('Have an account? Sign in',
-          style:helper.authButton1Style),
+          style:helper.authButton2Style),
       onPressed: _formMode == FormMode.LOGIN
           ? _changeFormToSignUp
           : _changeFormToLogin,
