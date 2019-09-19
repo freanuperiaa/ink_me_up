@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class HomePage extends StatelessWidget{
-  final Future<FirebaseUser> user;
+
+  final user;
 
   HomePage({this.user});
 
@@ -15,7 +16,7 @@ class HomePage extends StatelessWidget{
       ),
       body: Center(
         child: Text(
-            'Welcome, ${user.hashCode}'
+            'Welcome, ${user.email}'
         ),
       ),
     );

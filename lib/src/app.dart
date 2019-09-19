@@ -1,20 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:ink_me_up/src/screens/login_signup_page.dart';
 import 'package:ink_me_up/src/screens/home.dart';
+import 'package:ink_me_up/src/screens/splash_screen.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget{
-
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-
-  Future<FirebaseUser> getUser() async {
-    return await _auth.currentUser();
-  }
-
-  var _hasUser = false;
 
   @override
   Widget build(BuildContext context){
@@ -24,10 +16,9 @@ class MyApp extends StatelessWidget{
         primarySwatch: Colors.indigo
       ),
       title: 'Ink Me Up!',
-      home: _hasUser
-              ? Scaffold()
-              : LoginSignUpPage(),
+      initialRoute: '/',
       routes: <String, WidgetBuilder>{
+        '/': (context) => SplashScreen(),
         '/home': (context) => HomePage(),
         '/loginsignup': (context) => LoginSignUpPage(),
       },

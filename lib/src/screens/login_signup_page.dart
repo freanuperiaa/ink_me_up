@@ -108,9 +108,15 @@ class _LoginSignUpPageState extends State<LoginSignUpPage>{
           style: helper.authButton2Style)
           : Text('Have an account? Sign in',
           style:helper.authButton2Style),
-      onPressed: _formMode == FormMode.LOGIN
-          ? _changeFormToSignUp
-          : _changeFormToLogin,
+      onPressed: (){
+        if (_formMode == FormMode.LOGIN) {
+          _changeFormToSignUp();
+        }else{
+          _changeFormToLogin();
+        }
+        _emailController.clear();
+        _passwordController.clear();
+      },
     );
   }
 
@@ -158,6 +164,7 @@ class _LoginSignUpPageState extends State<LoginSignUpPage>{
       setState(() {
         _isLoading = false;
         _errorMessage = e.message;
+        _passwordController.clear();
       });
     }
     setState(() {
