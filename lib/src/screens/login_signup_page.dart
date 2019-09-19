@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:ink_me_up/src/screens/home.dart';
 
 import 'package:ink_me_up/src/utils/utils.dart';
 
@@ -154,11 +155,12 @@ class _LoginSignUpPageState extends State<LoginSignUpPage>{
       if (userId.length > 0 && userId != null) {
         print('error');
       }
-      Navigator.pushReplacementNamed(
-        context,
-        '/home',
-        arguments: user
-      );
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (context) => HomePage(
+                user: user.uid,
+              )));
     } catch (e) {
       print('Error: $e');
       setState(() {

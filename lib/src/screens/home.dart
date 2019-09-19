@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 
-import 'package:firebase_auth/firebase_auth.dart';
 
-class HomePage extends StatelessWidget{
+class HomePage extends StatefulWidget{
 
-  final user;
+  final String user;
 
   HomePage({this.user});
 
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context){
     return Scaffold(
@@ -15,8 +19,10 @@ class HomePage extends StatelessWidget{
         title: Center(child: Text('INK ME UP'),),
       ),
       body: Center(
-        child: Text(
-            'Welcome, ${user.email}'
+        child: Column(
+          children: <Widget>[
+            Text('Welcome, ${widget.user}'),
+          ],
         ),
       ),
     );
