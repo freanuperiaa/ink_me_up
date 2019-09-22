@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:ink_me_up/src/screens/login_signup_page.dart';
 import 'package:ink_me_up/src/screens/home.dart';
+import 'package:ink_me_up/src/screens/setup_profile_page.dart';
 import 'package:ink_me_up/src/screens/splash_screen.dart';
 
 void main() => runApp(MyApp());
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget{
         '/': (context) => SplashScreen(),
         '/home': (context) => HomePage(),
         '/loginsignup': (context) => LoginSignUpPage(),
+        '/setupprofile': (context) => SetupProfilePage(),
       },
     );
   }
