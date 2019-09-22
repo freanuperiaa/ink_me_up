@@ -1,7 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:ink_me_up/src/screens/home.dart';
 
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:ink_me_up/src/models/user_profile.dart';
+import 'package:ink_me_up/src/screens/home.dart';
+import 'package:ink_me_up/src/screens/setup_profile_page.dart';
 import 'package:ink_me_up/src/utils/utils.dart';
 
 enum FormMode { LOGIN, SIGNUP }
@@ -23,6 +26,9 @@ class _LoginSignUpPageState extends State<LoginSignUpPage>{
   final _passwordController = TextEditingController();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   FirebaseUser user;
+
+  UserProfile userProfile;
+  final _databaseReference = Firestore.instance;
 
   Widget _showCircularProgress(){
     if (_isLoading){
@@ -147,20 +153,49 @@ class _LoginSignUpPageState extends State<LoginSignUpPage>{
     String userId = "";
     try {
       if (_formMode == FormMode.LOGIN) {
+        // login with existing user
         user = await _auth.signInWithEmailAndPassword(email: _emailController.text, password: _passwordController.text);
-
+        // check if user has already setup his account
+        _databaseReference.collection('users')
+            .where('user_id', isEqualTo: user.uid)
+            .getDocuments()
+            .then((QuerySnapshot snapshot){
+              setState(() {
+              userProfile = UserProfile.fromJson(snapshot.documents[0].data);
+              });
+              // if no user profile found (haven't set up yet), go to SetupProfilePage
+              if (userProfile == null){
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => SetupProfilePage(
+                          user: user.uid,
+                        )));
+              }else{
+                // if user has already setup profile
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => HomePage(
+                          user: userProfile,
+                        )));
+              }
+        });
       } else {
         user = await _auth.createUserWithEmailAndPassword(email: _emailController.text, password: _passwordController.text);
+        // proceed to setup account
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => SetupProfilePage(
+              user: user.uid,
+            )
+          )
+        );
       }
       if (userId.length > 0 && userId != null) {
         print('error');
       }
-      Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-              builder: (context) => HomePage(
-                user: user.uid,
-              )));
     } catch (e) {
       print('Error: $e');
       setState(() {
