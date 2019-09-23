@@ -44,7 +44,7 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
-      drawer: HomeDrawer(context: context,),
+      drawer: HomeDrawer(context: context, user: widget.user,),
       bottomNavigationBar: BottomNavigationBar(
         elevation: 5.0,
         type: BottomNavigationBarType.fixed,

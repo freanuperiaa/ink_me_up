@@ -57,6 +57,9 @@ flutter:
 
   assets:
     - assets/icon/inkmeup.png
+    - assets/home_drawer_header.jpg
+    - assets/home_drawer_header2.png
+    - assets/home_drawer_header5.jpg
   # remember to 'packages get' to get the package to import the image.
 
 
