@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 
 
 class Helper{
+
+  var themePrimaryColor = Colors.indigo;
+  var themeAccentColor = Colors.blue;
+
   var emptyContainer = Container(height: 0.0, width: 0.0,);
   var EDGEINSETS_LTRB_30T = EdgeInsets.fromLTRB(0.0, 30.0, 0.0, 0.0);
   var EDGEINSETS_LTRB_100T = EdgeInsets.fromLTRB(0.0, 100.0, 0.0, 0.0);

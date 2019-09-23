@@ -4,6 +4,7 @@ import 'package:ink_me_up/src/screens/login_signup_page.dart';
 import 'package:ink_me_up/src/screens/home.dart';
 import 'package:ink_me_up/src/screens/setup_profile_page.dart';
 import 'package:ink_me_up/src/screens/splash_screen.dart';
+import 'package:ink_me_up/src/utils/utils.dart';
 
 void main() => runApp(MyApp());
 
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget{
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.indigo
+        primarySwatch: helper.themePrimaryColor,
       ),
       title: 'Ink Me Up!',
       initialRoute: '/',
