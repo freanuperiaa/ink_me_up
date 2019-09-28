@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ink_me_up/src/models/user_profile.dart';
 
 import 'package:ink_me_up/src/utils/utils.dart';
 
@@ -16,8 +17,28 @@ class SetupProfilePage extends StatefulWidget{
 
 class _SetupProfilePageState extends State<SetupProfilePage>{
 
+  CollectionReference db = Firestore.instance.collection('users');
+  UserProfile userProfile;
+
   bool _yesSelected = false;
   bool _noSelected = false;
+  var _firstNameController = TextEditingController();
+  var _lastNameController = TextEditingController();
+  var _address1Controller = TextEditingController();
+  var _address2Controller = TextEditingController();
+  var _cityController = TextEditingController();
+  var _phoneNumController = TextEditingController();
+
+  void submitUser(UserProfile user) async {
+    print('reached here');
+    Firestore.instance.collection('users')
+    .add(user.toJson())
+    .then((result) => {
+      print(result)
+    })
+    .catchError((err) => print(err));
+
+}
 
   @override
   Widget build(BuildContext context){
@@ -99,6 +120,7 @@ class _SetupProfilePageState extends State<SetupProfilePage>{
                         border: InputBorder.none,
                         hintText: 'First Name'
                     ),
+                    controller: _firstNameController,
                   )
               ),
               TextField(
@@ -106,6 +128,7 @@ class _SetupProfilePageState extends State<SetupProfilePage>{
                     border: InputBorder.none,
                     hintText: 'Last Name'
                 ),
+                controller: _lastNameController,
               ),
               Padding(
                 padding: EdgeInsets.only(top: 15.0),
@@ -119,18 +142,21 @@ class _SetupProfilePageState extends State<SetupProfilePage>{
                     border: InputBorder.none,
                     hintText: 'Address Line 1'
                 ),
+                controller: _address1Controller,
               ),
               TextField(
                 decoration: InputDecoration(
                     border: InputBorder.none,
                     hintText: 'Address Line 2'
                 ),
+                controller: _address2Controller,
               ),
               TextField(
                 decoration: InputDecoration(
                     border: InputBorder.none,
                     hintText: 'City'
                 ),
+                controller: _cityController,
               ),
               Padding(
                 padding: EdgeInsets.only(top: 15.0),
@@ -146,12 +172,20 @@ class _SetupProfilePageState extends State<SetupProfilePage>{
                       border: InputBorder.none,
                       hintText: 'Phone Number (ex: 09XXXXXXXXX)'
                   ),
+                  controller: _phoneNumController,
                 ),
               ),
               RaisedButton(
                 color: Colors.white,
                 child: Text("SUBMIT", style: TextStyle(color: Colors.black54, fontWeight: FontWeight.w500, fontSize: 15.0)),
-                onPressed: (){},
+                onPressed: () async {
+                  userProfile = UserProfile(
+                    userId: widget.user, phoneNumber: int.parse(_phoneNumController.text.toString()),
+                    isArtist: _yesSelected, firstName: _firstNameController.text, lastName: _lastNameController.text,
+                  address1: _address1Controller.text, address2: _address2Controller.text, addressCity: _cityController.text,
+                  );
+                  submitUser(userProfile);
+                },
                 shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
               )
 

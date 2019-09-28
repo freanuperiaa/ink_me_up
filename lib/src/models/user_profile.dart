@@ -31,4 +31,17 @@ class UserProfile{
     addressCity = json['address_city'];
   }
 
+  Map<String, dynamic> toJson() =>
+      {
+        'address_1': address1,
+        'address_2': address2,
+        'address_city': addressCity,
+        'first_name': firstName,
+        'is_artist': isArtist,
+        'last_name': lastName,
+        'phone_number': phoneNumber,
+        'user_id': userId
+      };
+
+
 }
