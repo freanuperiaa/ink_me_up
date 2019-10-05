@@ -11,8 +11,8 @@ import 'package:ink_me_up/src/screens/home_screen.dart';
 
 class HomePage extends StatefulWidget{
 
-  final UserProfile user;
-  HomePage({this.user});
+  final UserProfile userProfile;
+  HomePage({this.userProfile});
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -44,7 +44,7 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
-      drawer: HomeDrawer(context: context, user: widget.user,),
+      drawer: HomeDrawer(context: context, user: widget.userProfile,),
       bottomNavigationBar: BottomNavigationBar(
         elevation: 5.0,
         type: BottomNavigationBarType.fixed,
@@ -58,8 +58,8 @@ class _HomePageState extends State<HomePage> {
             title: Text('Artists'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.forum),
-            title: Text('Messages'),
+            icon: Icon(Icons.photo_album),
+            title: Text('Appointments'),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.map),
@@ -76,7 +76,7 @@ class _HomePageState extends State<HomePage> {
         children: <Widget>[
           HomePageWidget(),
           ArtistsPage(),
-          MessagesPage(),
+          AppointmentsPage(userProfile: widget.userProfile),
           TattMap(),
         ],
       ),

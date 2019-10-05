@@ -177,7 +177,7 @@ class _LoginSignUpPageState extends State<LoginSignUpPage>{
                     context,
                     MaterialPageRoute(
                         builder: (context) => HomePage(
-                          user: userProfile,
+                          userProfile: userProfile,
                         )));
               }
         });

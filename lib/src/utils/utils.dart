@@ -30,6 +30,17 @@ class Helper{
   }
 
 
+  Widget getAppointmentCard(String name, String desc){
+    return Card(
+      child: Column(
+        children: <Widget>[
+          Text(name),
+          Text(desc)
+        ],
+      ),
+      elevation: 5.0,
+    );
+  }
 }
 
 var helper = Helper();

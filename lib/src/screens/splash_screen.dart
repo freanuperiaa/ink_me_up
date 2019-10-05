@@ -37,7 +37,7 @@ class _SplashScreenState extends State<SplashScreen>{
               context,
               MaterialPageRoute(
                   builder: (context) => HomePage(
-                    user: userProfile,
+                    userProfile: userProfile,
                   )));
         }
     }).catchError((err) => print(err));

@@ -39,7 +39,7 @@ class _SetupProfilePageState extends State<SetupProfilePage>{
         context,
         MaterialPageRoute(
           builder: (context) => HomePage(
-            user: user,
+            userProfile: user,
           )
         )
       )
