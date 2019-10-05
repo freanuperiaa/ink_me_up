@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ink_me_up/src/models/user_profile.dart';
+import 'package:ink_me_up/src/screens/home.dart';
 
 import 'package:ink_me_up/src/utils/utils.dart';
 
@@ -34,7 +35,14 @@ class _SetupProfilePageState extends State<SetupProfilePage>{
     Firestore.instance.collection('users')
     .add(user.toJson())
     .then((result) => {
-      print(result)
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => HomePage(
+            user: user,
+          )
+        )
+      )
     })
     .catchError((err) => print(err));
 
