@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:ink_me_up/src/models/user_profile.dart';
 import 'package:ink_me_up/src/screens/artists_page.dart';
-import 'package:ink_me_up/src/screens/messages_page.dart';
+import 'package:ink_me_up/src/screens/appointments_page.dart';
 import 'package:ink_me_up/src/screens/tatt_map.dart';
 import 'package:ink_me_up/src/widgets/home_drawer.dart';
 import 'package:ink_me_up/src/screens/home_screen.dart';
@@ -75,8 +75,10 @@ class _HomePageState extends State<HomePage> {
         index: _selectedIndex,
         children: <Widget>[
           HomePageWidget(),
-          ArtistsPage(),
-          AppointmentsPage(userProfile: widget.userProfile),
+          ArtistsPage(userProfile: widget.userProfile),
+          AppointmentsPage(userProfile: widget.userProfile,goToArtists: (){setState(() {
+            _selectedIndex = 1;
+          });},),
           TattMap(),
         ],
       ),

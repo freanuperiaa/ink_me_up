@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:ink_me_up/src/models/user_profile.dart';
 
-import 'package:ink_me_up/src/screens/create_appointment.dart';
 import 'package:ink_me_up/src/utils/utils.dart';
 
 
 class AppointmentsPage extends StatefulWidget{
 
   final UserProfile userProfile;
+  VoidCallback goToArtists;
 
-  AppointmentsPage({this.userProfile});
+  AppointmentsPage({this.userProfile, this.goToArtists});
 
   @override
   State createState() => _AppointmentsPageState();
@@ -49,12 +49,7 @@ class _AppointmentsPageState extends State<AppointmentsPage>{
           child: Text('MAKE AN APPOINTMENT', style: TextStyle(color: Colors.white70),),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25.0)),
           onPressed: (){
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => CreateAppointmentPage(userProfile: widget.userProfile,)
-              )
-            );
+            widget.goToArtists();
           },
         )
       ],

@@ -41,6 +41,20 @@ class Helper{
       elevation: 5.0,
     );
   }
+
+  Widget getArtistCard(String name, String city, VoidCallback ontap){
+    return Card(
+      child: ListTile(
+        leading: Icon(Icons.account_circle),
+        trailing: InkWell(
+          onTap: ontap,
+          child: Icon(Icons.add_box),
+        ),
+        subtitle: Text(city),
+        title: Text(name),
+      )
+    );
+  }
 }
 
 var helper = Helper();

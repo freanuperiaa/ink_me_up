@@ -7,9 +7,10 @@ import 'package:ink_me_up/src/models/user_profile.dart';
 class CreateAppointmentPage extends StatelessWidget{
 
   final UserProfile userProfile;
+  final UserProfile artistsProfile;
   //CollectionReference db = Firestore.instance.collection('appointments');
 
-  CreateAppointmentPage({this.userProfile});
+  CreateAppointmentPage({this.userProfile, this.artistsProfile});
 
   @override
   Widget build(BuildContext context){
@@ -18,7 +19,7 @@ class CreateAppointmentPage extends StatelessWidget{
         title: Text('Create an Appointment'),
       ),
       body: Center(
-        child: Text('hello, ${userProfile.firstName}'),
+        child: Text('hello, ${userProfile.firstName}. appointment creation should be here.'),
       ),
     );
   }
