@@ -30,6 +30,78 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  Widget getBottomNavBarArist() {
+    return BottomNavigationBar(
+      elevation: 5.0,
+      type: BottomNavigationBarType.fixed,
+      items: const <BottomNavigationBarItem>[
+        BottomNavigationBarItem(
+          icon: Icon(Icons.home),
+          title: Text('Home'),
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.photo_album),
+          title: Text('Appointments'),
+        ),
+      ],
+      currentIndex: _selectedIndex,
+      selectedItemColor: Colors.blue,
+      onTap: _onItemTapped,
+    );
+  }
+
+  Widget getBottomNavBarEnthusiasts(){
+    return BottomNavigationBar(
+      elevation: 5.0,
+      type: BottomNavigationBarType.fixed,
+      items: const <BottomNavigationBarItem>[
+        BottomNavigationBarItem(
+          icon: Icon(Icons.home),
+          title: Text('Home'),
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.palette),
+          title: Text('Artists'),
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.photo_album),
+          title: Text('Appointments'),
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.map),
+          title: Text('Tatt Map'),
+        ),
+      ],
+      currentIndex: _selectedIndex,
+      selectedItemColor: Colors.blue,
+      onTap: _onItemTapped,
+    );
+  }
+
+  Widget getIndexedStackArtists(){
+    return IndexedStack(
+      index: _selectedIndex,
+      children: <Widget>[
+        HomePageWidget(),
+        AppointmentsPage(userProfile: widget.userProfile,),
+        ],
+    );
+  }
+
+  Widget getIndexedStackEnthusiasts(){
+    return IndexedStack(
+      index: _selectedIndex,
+      children: <Widget>[
+        HomePageWidget(),
+        ArtistsPage(userProfile: widget.userProfile),
+        AppointmentsPage(userProfile: widget.userProfile,goToArtists: (){setState(() {
+          _selectedIndex = 1;
+        });},),
+        TattMap(),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context){
     return Scaffold(
@@ -45,43 +117,12 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       drawer: HomeDrawer(context: context, user: widget.userProfile,),
-      bottomNavigationBar: BottomNavigationBar(
-        elevation: 5.0,
-        type: BottomNavigationBarType.fixed,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            title: Text('Home'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.palette),
-            title: Text('Artists'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.photo_album),
-            title: Text('Appointments'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.map),
-            title: Text('Tatt Map'),
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.blue,
-        onTap: _onItemTapped,
-      ),
-
-      body: new IndexedStack(
-        index: _selectedIndex,
-        children: <Widget>[
-          HomePageWidget(),
-          ArtistsPage(userProfile: widget.userProfile),
-          AppointmentsPage(userProfile: widget.userProfile,goToArtists: (){setState(() {
-            _selectedIndex = 1;
-          });},),
-          TattMap(),
-        ],
-      ),
+      bottomNavigationBar: widget.userProfile.isArtist
+        ? getBottomNavBarArist()
+        : getBottomNavBarEnthusiasts(),
+      body: widget.userProfile.isArtist
+        ? getIndexedStackArtists()
+        : getIndexedStackEnthusiasts()
     );
   }
 }

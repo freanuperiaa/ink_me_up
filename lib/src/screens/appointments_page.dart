@@ -44,14 +44,16 @@ class _AppointmentsPageState extends State<AppointmentsPage>{
                 ),
               )
         ),
-        RaisedButton(
-          color: Colors.blue,
-          child: Text('MAKE AN APPOINTMENT', style: TextStyle(color: Colors.white70),),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25.0)),
-          onPressed: (){
-            widget.goToArtists();
-          },
-        )
+        widget.userProfile.isArtist
+          ? Container()
+          : RaisedButton(
+              color: Colors.blue,
+              child: Text('MAKE AN APPOINTMENT', style: TextStyle(color: Colors.white70),),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25.0)),
+              onPressed: (){
+                widget.goToArtists();
+              },
+            )
       ],
     );
   }
