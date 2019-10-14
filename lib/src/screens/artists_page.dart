@@ -19,6 +19,36 @@ class ArtistsPage extends StatefulWidget{
 
 class _ArtistsPageState extends State<ArtistsPage>{
 
+  List<UserProfile> _artistsList;
+  final Firestore _databaseReference = Firestore.instance;
+
+  static Future<List<UserProfile>> _getUsersFromFirestore() async {
+    CollectionReference ref = Firestore.instance.collection('users');
+    QuerySnapshot usersQuery = await ref
+        .where("is_artist", isEqualTo: true)
+        .getDocuments();
+
+    Map<int, UserProfile> userMap = new Map<int, UserProfile>();
+
+    int _currIndex = 0;
+    usersQuery.documents.forEach((document) {
+      userMap.putIfAbsent(_currIndex, () => (UserProfile(
+          userId: document['user_id'],
+          isArtist: document['is_artist'],
+          firstName: document['first_name'],
+          lastName: document['last_name'],
+          phoneNumber: document['phone_number'],
+          address1: document['address_1'],
+          address2: document['address_2'],
+          addressCity: document['address_city']
+      ))
+      );
+      ++_currIndex;
+    });
+
+    return userMap.values.toList();
+  }
+
   @override
   Widget build(BuildContext context){
     return Center(
@@ -26,37 +56,25 @@ class _ArtistsPageState extends State<ArtistsPage>{
         padding: EdgeInsets.all(20.0),
         child: Column(
           children: <Widget>[
-            helper.getArtistCard(
-                'freanu peria',
-                'Gensan City',
-                (){
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => CreateAppointmentPage(
-                        userProfile: widget.userProfile,
-                        artistsProfile: widget.userProfile, // FIXME:  this should be changed,  when artists are requested dynamically,
-                                                            // FIXME:   artist's information should also be passed to CreateAppointmentPage()
-                      )
-                    )
-                  );
-                }
-            ),
-            helper.getArtistCard(
-                'Bryan Pacis',
-                'Quezon City',
-                    (){
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => CreateAppointmentPage(
-                            userProfile: widget.userProfile,
-                            artistsProfile: widget.userProfile, // FIXME:  this should be changed,  when artists are requested dynamically,
-                            // FIXME:   artist's information should also be passed to CreateAppointmentPage()
-                          )
-                      )
-                  );
-                }
+            Expanded(
+              child: FutureBuilder<List<UserProfile>>(
+                future: _getUsersFromFirestore(),
+                builder: (context, snapshot) {
+                  if(snapshot.connectionState != ConnectionState.done) {
+                    // return: show loading widget
+                  }
+                  if(snapshot.hasError) {
+                    // return: show error widget
+                  }
+                  List<UserProfile> users = snapshot.data ?? [];
+                  return ListView.builder(
+                      itemCount: users.length,
+                      itemBuilder: (context, index) {
+                        UserProfile user = users[index];
+                        var artistTile = helper.getArtistCard('${user.firstName} ${user.lastName}', user.addressCity, (){});
+                        return artistTile;
+                      });
+                  }),
             )
           ],
         ),
