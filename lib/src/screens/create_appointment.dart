@@ -18,8 +18,35 @@ class CreateAppointmentPage extends StatelessWidget{
       appBar: AppBar(
         title: Text('Create an Appointment'),
       ),
-      body: Center(
-        child: Text('client: ${userProfile.firstName} \nartist:${artistsProfile.firstName}'),
+      body: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 25.0, vertical: 15.0),
+        child: Column(
+          children: <Widget>[
+            Text(
+              'Request an appointment with:',
+              style: TextStyle(
+                  fontSize: 28.0, fontWeight: FontWeight.w500, color: Colors.blueGrey[700]
+              ),
+            ),
+            Card(
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                child: Row(
+                  children: <Widget>[
+                    Icon(Icons.account_circle, color: Colors.blueAccent, size: 40.0,),
+                    Container(width: 50.0,),
+                    Text(
+                      '${artistsProfile.firstName}',
+                      style: TextStyle(
+                          fontSize: 34.0, fontWeight: FontWeight.w600, color: Colors.blueAccent
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
