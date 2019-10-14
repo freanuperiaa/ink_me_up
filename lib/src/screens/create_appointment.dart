@@ -19,7 +19,7 @@ class CreateAppointmentPage extends StatelessWidget{
         title: Text('Create an Appointment'),
       ),
       body: Center(
-        child: Text('hello, ${userProfile.firstName}. appointment creation should be here.'),
+        child: Text('client: ${userProfile.firstName} \nartist:${artistsProfile.firstName}'),
       ),
     );
   }

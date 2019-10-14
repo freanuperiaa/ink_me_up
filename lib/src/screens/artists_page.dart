@@ -71,7 +71,17 @@ class _ArtistsPageState extends State<ArtistsPage>{
                       itemCount: users.length,
                       itemBuilder: (context, index) {
                         UserProfile user = users[index];
-                        var artistTile = helper.getArtistCard('${user.firstName} ${user.lastName}', user.addressCity, (){});
+                        var artistTile = helper.getArtistCard('${user.firstName} ${user.lastName}', user.addressCity, (){
+                          Navigator.push(
+                              (context),
+                              MaterialPageRoute(
+                                builder: (context) => CreateAppointmentPage(
+                                  userProfile: widget.userProfile,
+                                  artistsProfile: user,
+                                )
+                              )
+                          );
+                        });
                         return artistTile;
                       });
                   }),
