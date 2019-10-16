@@ -18,7 +18,7 @@ class Helper{
   var authButton2Style = TextStyle(fontSize: 18.0, fontWeight: FontWeight.w300);
   var authErrorStyle =  TextStyle(fontSize: 13.0, color: Colors.red, height: 1.0, fontWeight: FontWeight.w300);
 
-  TextStyle drawerHeaderTextStyle = TextStyle(fontSize: 24.0, color: Colors.grey, fontWeight: FontWeight.w500);
+  TextStyle drawerHeaderTextStyle = TextStyle(fontSize: 24.0, color: Colors.white, fontWeight: FontWeight.w500);
 
 
   Widget getHeaderListTile(String title, IconData icon, VoidCallback callback){

@@ -32,7 +32,9 @@ class _HomePageWidgetState extends State<HomePageWidget>{
               ],
             ),
           ),
-          Padding(
+          widget.userProfile.isArtist
+            ? Container()
+            : Padding(
             padding: EdgeInsets.symmetric(vertical: 20.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -113,7 +115,7 @@ class _HomePageWidgetState extends State<HomePageWidget>{
                       children: <Widget>[
                         Text('You have ', style: TextStyle(color: Colors.black87, fontSize: 20.0, fontWeight: FontWeight.w300),),
                         Text('0', style: TextStyle(color: Colors.blueAccent, fontSize: 28.0, fontWeight: FontWeight.w500, fontStyle: FontStyle.italic)),
-                        Text('requests for appointment.', style: TextStyle(color: Colors.black87, fontSize: 20.0, fontWeight: FontWeight.w300))
+                        Text(' requests for appointment.', style: TextStyle(color: Colors.black87, fontSize: 20.0, fontWeight: FontWeight.w300))
                       ],
                     ),
                   ),
