@@ -82,7 +82,7 @@ class _HomePageState extends State<HomePage> {
     return IndexedStack(
       index: _selectedIndex,
       children: <Widget>[
-        HomePageWidget(),
+        HomePageWidget(userProfile: widget.userProfile,),
         AppointmentsPage(userProfile: widget.userProfile,),
         ],
     );
@@ -92,7 +92,14 @@ class _HomePageState extends State<HomePage> {
     return IndexedStack(
       index: _selectedIndex,
       children: <Widget>[
-        HomePageWidget(),
+        HomePageWidget(userProfile: widget.userProfile,
+          goToArtists: (){setState(() {
+            _selectedIndex = 1;
+          });},
+          goToAppointments: (){setState(() {
+            _selectedIndex = 2;
+          });},
+        ),
         ArtistsPage(userProfile: widget.userProfile),
         AppointmentsPage(userProfile: widget.userProfile,goToArtists: (){setState(() {
           _selectedIndex = 1;
